@@ -1,2 +1,3 @@
 config/database.rb
 config/deploy.rb
+log

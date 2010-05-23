@@ -21,6 +21,7 @@ class Url < ActiveRecord::Base
       
       # set the key
       self.alias = generated_key
+      # self.custom = false
     else
       self.custom = true
     end
@@ -64,7 +65,12 @@ end
 get '/:alias' do
   @url = Url.find_by_alias(params[:alias])
   if @url.blank?
+    erb :error
   else
     redirect @url.address
   end
+end
+
+get '/error' do
+  erb :error
 end
