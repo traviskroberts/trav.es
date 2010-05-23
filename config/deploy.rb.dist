@@ -1,0 +1,22 @@
+set :domain, "trav.es"
+set :application, "traves"
+set :deploy_to, "/var/www/apps/#{domain}"
+
+set :scm, :git
+set :repository,  "your repo here"
+set :branch, 'master'
+set :git_shallow_clone, 1
+
+role :web, "trav.es"                    # Your HTTP server, Apache/etc
+role :app, "trav.es"                    # This may be the same as your `Web` server
+role :db,  "trav.es", :primary => true  # This is where Rails migrations will run
+
+set :deploy_via, :remote_cache
+
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end

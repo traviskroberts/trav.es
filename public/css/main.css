@@ -1,0 +1,107 @@
+body, html { background-color:#f2f2f2; }
+
+#header { overflow:hidden; padding:25px 0 5px 0; }
+#header #nav { float:right; }
+#header #nav li { float:left; list-style-type:none; margin:0 10px 0 0; }
+#header #nav li a {
+  background-color:#3F7EA6;
+  border-radius:4px;
+  color:#fff;
+  display:block;
+  padding:2px 8px;
+  text-decoration:none;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  -webkit-transition:background-color 0.5s ease;
+}
+#header #nav li a:hover { background-color:#023059; }
+#header #logo {
+  clear:both;
+  margin:;
+}
+
+#divider {
+  background-color:#023059;
+  border-radius:6px;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+}
+#divider p {
+  color:#fff;
+  font-size:16px;
+  padding:5px 15px;
+  text-shadow:1px 1px #999;
+}
+
+form {
+  background-color:rgba(2,48,89,0.7);
+  border-radius:6px;
+  box-shadow:2px 2px 5px #999;
+  padding:15px 25px;
+/*  width:75%;*/
+  -moz-border-radius:6px;
+  -moz-box-shadow:2px 2px 5px #999;
+  -webkit-border-radius:6px;
+  -webkit-box-shadow:2px 2px 5px #999;
+}
+form .link_address label {
+  color:#fff;
+  font-size:18px;
+  margin:0 5px 0 0;
+  text-shadow:1px 1px #999;
+}
+form .link_address input[type="text"] {
+  border:1px solid #999;
+  font-size:16px;
+  padding:3px 5px;
+  width:600px;
+}
+form .link_address input[type="submit"] {
+  background-color:#023059;
+  border:1px solid #023059;
+  border-radius:4px;
+  color:#fff;
+  font-size:14px;
+  padding:5px 10px;
+  text-shadow:1px 1px #666;
+  -webkit-transition:background-color 0.25s linear;
+}
+form .link_address input[type="submit"]:hover {
+  background-color:rgba(2,48,89,0.8);
+  cursor:pointer;
+}
+
+form .link_alias label { color:#fff; font-size:14px; line-height:25px; margin:2px 2px 0 0; }
+form .link_alias input[type="text"] { border:1px solid #999; font-size:14px; margin:0; padding:2px; width:150px; }
+form .link_alias .help { color:#ccc; display:block; font-size:12px; }
+
+.short_url {
+  background-color:#bf5e0a;
+  border-radius:6px;
+  color:#fff;
+  font-size:18px;
+  padding:10px 25px;
+  -mox-border-radius:6px;
+  -webkit-border-radius:6px;
+}
+.short_url { text-shadow:1px 1px #666; }
+.short_url input { width:250px; font-size:18px; }
+
+/************ styles for notice/error divs ************/
+.notice { background-color:#A4E7A0; border:1px solid #26722D; }
+.error { background-color:#F0A8A8; border:1px solid #900; }
+.notice, .error { width:90%; margin:0 auto 10px auto; padding:5px 10px; }
+
+.errors {
+  background-color:#fff6bf;
+  border:2px solid #900;
+  margin:0 0 15px 0;
+}
+.errors h2 {
+  background-color:#900;
+  color:#fff;
+  font-size:18px;
+  margin:0;
+  padding:5px 15px;
+}
+.errors ul { margin:10px 0; }

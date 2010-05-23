@@ -1,0 +1,42 @@
+<% if !@url.errors.empty? %>
+  <div class="errors">
+    <h2>The form could not be saved due to the following errors:</h2>
+    <ul>
+      <% @url.errors.each do |error| %>
+        <li><%= error[0].to_s.capitalize + ' ' + error[1] %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if !@url.new_record? %>
+  <p class="short_url">
+    <label for="shortened_url">Your shortened URL:</label>
+    <input type="text" id="shortened_url" value="<%= @url.shortened_url %>" />
+  </p>
+<% end %>
+
+<form action="/" method="post">
+  <p class="link_address">
+    <label for="url_address">URL</label>
+    <input type="text" name="url[address]" id="url_address" value="<%= @url.address %>" />
+    <input type="submit" value="Shorten Url" />
+  </p>
+  <p class="link_alias">
+    <label for="url_alias"><%= BASE_URL %></label><input type="text" name="url[alias]" id="url_alias" value="<%= @url.alias %>" />
+    <span class="help">custom alias (optional)</span>
+  </p>
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // fix the margin on the help text
+    var width = $(".link_alias label").width() + 5;
+    $(".link_alias .help").css('margin-left', width + 'px');
+    
+    // make short url get auto-selected when page loads
+    $(".short_url input").focus(function() {
+      this.select();
+    });
+  });
+</script>

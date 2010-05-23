@@ -1,0 +1,6 @@
+ActiveRecord::Base.establish_connection(
+  :adapter => 'mysql',
+  :username => 'admin',
+  :password => '',
+  :database => 'traves_development'
+)
