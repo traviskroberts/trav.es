@@ -1,5 +1,5 @@
-require 'rubygems'
-require 'sinatra'
+# require 'rubygems'
+# require 'sinatra'
 require 'active_record'
 require 'config/database'
 
