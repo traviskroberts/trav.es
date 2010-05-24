@@ -34,10 +34,8 @@ class Url < ActiveRecord::Base
   protected
     def make_key
       chars = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
       key = ''
       4.times { key << chars[rand(chars.length)] }
-
       key
     end
 end
@@ -52,14 +50,33 @@ end
 post '/' do
   # first things first, let's check to see if that address has already been shortened
   if params[:url][:alias].blank? and @url = Url.first(:conditions => ["address = ? AND custom = ?", params[:url][:address], false])
-    redirect "/link/#{@url.id}"
+    erb :index
+  else
+    # create a new shortened url
+    @url = Url.new(params[:url])
+    @url.save
+    erb :index
+  end
+end
+
+get '/generate' do
+  # make sure they are actually sending an address to shorten
+  if params[:address].blank?
+    redirect '/'
   end
   
-  # create a new shortened url
-  @url = Url.new(params[:url])
-  @url.save
-  
-  erb :index
+  # first, try to find the url to see if it's already been shortened
+  if @url = Url.first(:conditions => ["address = ? AND custom = ?", URI.unescape(params[:address]), false])
+    erb :index
+  else
+    @url = Url.new(:address => URI.unescape(params[:address]))
+    @url.save
+    erb :index
+  end
+end
+
+get '/error' do
+  erb :error
 end
 
 get '/:alias' do
@@ -69,8 +86,4 @@ get '/:alias' do
   else
     redirect @url.address
   end
-end
-
-get '/error' do
-  erb :error
 end

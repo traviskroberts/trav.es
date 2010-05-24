@@ -20,6 +20,23 @@
       </div>
 
       <%= yield %>
+      
+      <div id="footer">
+        <p>
+          Created by <a href="http://travisonrails.com">Travis Roberts</a>.
+          &nbsp;
+          <a href="javascript:void(location.href='http://trav.es/generate?address='+encodeURIComponent(location.href))" class="bookmarklet">Trav.es</a> bookmarklet (drag to your bookmark bar)
+        </p>
+      </div>
     </div>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".bookmarklet").click(function() {
+          alert("Drag this bookmarklet to your address bar to use it.");
+          return false;
+        })
+      });
+    </script>
   </body>
 </html>
