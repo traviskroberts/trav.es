@@ -1,7 +1,6 @@
-# require 'rubygems'
-# require 'sinatra'
 require 'active_record'
 require 'config/database'
+require 'lib/authorization'
 
 class Url < ActiveRecord::Base
   before_save :generate_key
@@ -38,6 +37,10 @@ class Url < ActiveRecord::Base
       4.times { key << chars[rand(chars.length)] }
       key
     end
+end
+
+helpers do
+  include Sinatra::Authorization
 end
 
 BASE_URL = 'http://trav.es/'
@@ -79,11 +82,18 @@ get '/error' do
   erb :error
 end
 
+get '/all-links' do
+  require_admin
+  @urls = Url.all
+  erb :links
+end
+
 get '/:alias' do
   @url = Url.find_by_alias(params[:alias])
   if @url.blank?
     erb :error
   else
+    @url.update_attribute(:num_clicks, @url.num_clicks + 1)
     redirect @url.address
   end
 end

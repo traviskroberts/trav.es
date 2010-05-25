@@ -92,6 +92,12 @@ form .link_alias .help { color:#ccc; display:block; font-size:12px; }
 .short_url { text-shadow:1px 1px #666; }
 .short_url input { width:250px; font-size:18px; }
 
+table.links { border-top:1px solid #999; border-left:1px solid #999; width:100%; }
+table.links th { text-shadow:1px 1px #ddd; }
+table.links th, table.links td { border-right:1px solid #999; border-bottom:1px solid #999; padding:2px 5px; }
+table.links th { text-align:left; }
+table.links .center { text-align:center; }
+
 /************ styles for notice/error divs ************/
 .notice { background-color:#A4E7A0; border:1px solid #26722D; }
 .error { background-color:#F0A8A8; border:1px solid #900; }

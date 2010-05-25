@@ -1,0 +1,20 @@
+<h1>All Links</h1>
+
+<p>Total links: <%= @urls.length %></p>
+
+<table class="links">
+  <tr>
+    <th>Original URL</th>
+    <th>Short URL</th>
+    <th class="center"># Clicks</th>
+    <th class="center">Date Created</th>
+  </tr>
+  <% @urls.each do |link| %>
+    <tr>
+      <td><%= link.address %></td>
+      <td><%= link.shortened_url %></td>
+      <td class="center"><%= link.num_clicks %></td>
+      <td class="center"><%= link.created_at.strftime("%b %d, %Y") %></td>
+    </tr>
+  <% end %>
+</table>
