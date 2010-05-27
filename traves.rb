@@ -20,7 +20,7 @@ class Url < ActiveRecord::Base
       
       # set the key
       self.alias = generated_key
-      # self.custom = false
+      self.custom = false
     else
       self.custom = true
     end
