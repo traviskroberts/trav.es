@@ -23,7 +23,7 @@
     <input type="submit" value="Shorten Url" />
   </p>
   <p class="link_alias">
-    <label for="url_alias"><%= BASE_URL %></label><input type="text" name="url[alias]" id="url_alias" value="<%= @url.custom_alias ? @url.alias : '' %>" />
+    <label for="alias"><%= BASE_URL %></label><input type="text" name="url[alias]" id="url_alias" value="<%= @url.custom ? @url.alias : '' %>" />
     <span class="help">custom alias (optional)</span>
   </p>
 </form>

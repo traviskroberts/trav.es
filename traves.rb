@@ -20,9 +20,8 @@ class Url < ActiveRecord::Base
       
       # set the key
       self.alias = generated_key
-      self.custom_alias = false
     else
-      self.custom_alias = true
+      self.custom = true
     end
   end
   
@@ -52,13 +51,12 @@ end
 
 post '/' do
   # first things first, let's check to see if that address has already been shortened
-  if params[:url][:alias].blank? and @url = Url.first(:conditions => ["address = ? AND custom_alias = ?", params[:url][:address], false])
-    @error = "Ok, something isn't quite right."
+  if params[:url][:alias].blank? and @url = Url.first(:conditions => ["address = ? AND custom = ?", params[:url][:address], false])
     erb :index
   else
     # create a new shortened url
     @url = Url.new(params[:url])
-    @error = @url.save
+    @url.save
     erb :index
   end
 end
@@ -70,7 +68,7 @@ get '/generate' do
   end
   
   # first, try to find the url to see if it's already been shortened
-  if @url = Url.first(:conditions => ["address = ? AND custom_alias = ?", URI.unescape(params[:address]), false])
+  if @url = Url.first(:conditions => ["address = ? AND custom = ?", URI.unescape(params[:address]), false])
     erb :index
   else
     @url = Url.new(:address => URI.unescape(params[:address]))
