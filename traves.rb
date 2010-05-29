@@ -1,4 +1,4 @@
-require 'active_record'
+require 'lib/activerecord/lib/active_record'
 require 'config/database'
 require 'lib/authorization'
 
