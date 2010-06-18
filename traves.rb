@@ -1,8 +1,19 @@
+require 'mongo_mapper'
 require 'lib/activerecord/lib/active_record'
 require 'config/database'
 require 'lib/authorization'
 
+MongoMapper.connection = Mongo::Connection.new('localhost')
+MongoMapper.database = 'traves'
+
 class Url < ActiveRecord::Base
+  include MongoMapper::Document
+  
+  key :address, String
+  key :alias, String
+  key :custom, Boolean
+  key :num_clicks, Integer, :default => 0
+  
   before_save :generate_key
   
   validates_uniqueness_of :alias
@@ -14,12 +25,13 @@ class Url < ActiveRecord::Base
       generated_key = make_key
       
       # make SURE the key is unique (keep trying till we get it)
-      while !Url.first(:conditions => ["alias = ?", generated_key]).blank?
+      while !Url.all(:alias => generated_key).blank?
         generated_key = make_key
       end
       
       # set the key
       self.alias = generated_key
+      self.custom = false
     else
       self.custom = true
     end
@@ -88,11 +100,13 @@ get '/all-links' do
 end
 
 get '/:alias' do
-  @url = Url.find_by_alias(params[:alias])
-  if @url.blank?
-    erb :error
-  else
-    @url.update_attribute(:num_clicks, @url.num_clicks + 1)
+  @url = Url.first(:alias => params[:alias])
+  
+  if @url.address
+    @url.num_clicks += 1
+    @url.save
     redirect @url.address
+  else
+    erb :error
   end
 end
