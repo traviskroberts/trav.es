@@ -1,10 +1,14 @@
 require 'mongo_mapper'
-require 'lib/activerecord/lib/active_record'
-require 'config/database'
+require 'yaml'
+# require 'lib/activerecord/lib/active_record'
+# require 'config/database'
 require 'lib/authorization'
 
+db_settings = YAML::load(File.new("config/database.yml").read)
+
 MongoMapper.connection = Mongo::Connection.new('localhost')
-MongoMapper.database = 'traves'
+MongoMapper.database = db_settings['database']
+MongoMapper.database.authenticate(db_settings['username'], db_settings['password'])
 
 class Url < ActiveRecord::Base
   include MongoMapper::Document
@@ -13,6 +17,7 @@ class Url < ActiveRecord::Base
   key :alias, String
   key :custom, Boolean
   key :num_clicks, Integer, :default => 0
+  key :created_at, DateTime
   
   before_save :generate_key
   
@@ -35,6 +40,8 @@ class Url < ActiveRecord::Base
     else
       self.custom = true
     end
+    
+    self.created_at = Time.now
   end
   
   def shortened_url
@@ -63,7 +70,7 @@ end
 
 post '/' do
   # first things first, let's check to see if that address has already been shortened
-  if params[:url][:alias].blank? and @url = Url.first(:conditions => ["address = ? AND custom = ?", params[:url][:address], false])
+  if params[:url][:alias].blank? and @url = Url.first(:address => params[:url][:address], :custom => false)
     erb :index
   else
     # create a new shortened url
@@ -79,11 +86,13 @@ get '/generate' do
     redirect '/'
   end
   
+  unescaped_address = URI.unescape(params[:address])
+  
   # first, try to find the url to see if it's already been shortened
-  if @url = Url.first(:conditions => ["address = ? AND custom = ?", URI.unescape(params[:address]), false])
+  if @url = Url.first(:address => unescaped_address, :custom => false)
     erb :index
   else
-    @url = Url.new(:address => URI.unescape(params[:address]))
+    @url = Url.new(:address => unescaped_address)
     @url.save
     erb :index
   end

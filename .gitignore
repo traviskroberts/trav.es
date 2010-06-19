@@ -1,4 +1,4 @@
-config/database.rb
+config/database.yml
 config/deploy.rb
 log
 lib/authorization.rb
