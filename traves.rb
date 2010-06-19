@@ -1,7 +1,6 @@
 require 'mongo_mapper'
 require 'yaml'
-# require 'lib/activerecord/lib/active_record'
-# require 'config/database'
+require 'lib/activerecord/lib/active_record'
 require 'lib/authorization'
 
 db_settings = YAML::load(File.new("config/database.yml").read)
