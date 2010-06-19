@@ -34,7 +34,7 @@
     var width = $(".link_alias label").width() + 5;
     $(".link_alias .help").css('margin-left', width + 'px');
     
-    // make short url get auto-selected when page loads
+    // make short url get auto-selected when page loads (doesn't work in Chrome)
     $(".short_url input").focus(function() {
       this.select();
     });

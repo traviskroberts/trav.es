@@ -18,7 +18,7 @@ class Url < ActiveRecord::Base
   key :num_clicks, Integer, :default => 0
   key :created_at, DateTime
   
-  before_save :generate_key
+  before_create :generate_key
   
   validates_uniqueness_of :alias
   validates_presence_of :address
@@ -117,8 +117,7 @@ get '/:alias' do
   @url = Url.first(:alias => params[:alias])
   
   if @url.address
-    @url.num_clicks += 1
-    @url.save
+    @url.update_attributes(:num_clicks => @url.num_clicks + 1)
     redirect @url.address
   else
     erb :error
