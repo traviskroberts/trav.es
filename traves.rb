@@ -14,7 +14,7 @@ class Url < ActiveRecord::Base
   
   key :address, String
   key :alias, String
-  key :custom, Boolean
+  key :custom, Boolean, :default => false
   key :num_clicks, Integer, :default => 0
   key :created_at, DateTime
   
@@ -35,7 +35,6 @@ class Url < ActiveRecord::Base
       
       # set the key
       self.alias = generated_key
-      self.custom = false
     else
       self.custom = true
     end
