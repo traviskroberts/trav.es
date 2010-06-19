@@ -8,13 +8,15 @@
     <th>Short URL</th>
     <th class="center"># Clicks</th>
     <th class="center">Date Created</th>
+    <th class="center">Actions</th>
   </tr>
   <% @urls.each do |link| %>
     <tr>
-      <td><a href="<%= link.address %>"><%= link.address.length > 85 ? link.address[0..85] + '...' : link.address %></a></td>
+      <td><a href="<%= link.address %>"><%= link.address.length > 85 ? link.address[0..70] + '...' : link.address %></a></td>
       <td><%= link.shortened_url %></td>
       <td class="center"><%= link.num_clicks %></td>
       <td class="center"><%= link.created_at ? link.created_at.strftime("%b %d, %Y") : '' %></td>
+      <td class="center"><a href="/delete?alias=<%= link.alias %>">Delete</a></td>
     </tr>
   <% end %>
 </table>

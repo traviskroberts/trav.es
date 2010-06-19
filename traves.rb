@@ -106,6 +106,13 @@ get '/all-links' do
   erb :links
 end
 
+get '/delete' do
+  require_admin
+  @url = Url.first(:alias => params[:alias])
+  @url.delete
+  redirect '/all-links'
+end
+
 get '/:alias' do
   @url = Url.first(:alias => params[:alias])
   
