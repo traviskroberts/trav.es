@@ -102,7 +102,7 @@ end
 
 get '/all-links' do
   require_admin
-  @urls = Url.all
+  @urls = Url.all(:order => 'created_at DESC')
   erb :links
 end
 
